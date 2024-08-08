@@ -38,6 +38,26 @@
             :script="currentInbox.provider_config.webhook_verify_token"
           />
         </div>
+        <div
+          v-if="isWhatsAppFireMobileInbox"
+          class="w-[50%] max-w-[50%] ml-[25%]"
+        >
+          <p class="text-slate-700 dark:text-slate-200 font-medium mt-8">
+            {{ $t('INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.WEBHOOK_URL') }}
+          </p>
+          <woot-code lang="html" :script="currentInbox.callback_webhook_url" />
+          <p class="text-slate-700 dark:text-slate-200 font-medium mt-8">
+            {{
+              $t(
+                'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.WEBHOOK_VERIFICATION_TOKEN'
+              )
+            }}
+          </p>
+          <woot-code
+            lang="html"
+            :script="currentInbox.provider_config.webhook_verify_token"
+          />
+        </div>
         <div class="w-[50%] max-w-[50%] ml-[25%]">
           <woot-code
             v-if="isALineInbox"
@@ -116,6 +136,12 @@ export default {
         this.currentInbox.provider === 'whatsapp_cloud'
       );
     },
+    isWhatsAppFireMobileInbox() {
+      return (
+        this.currentInbox.channel_type === 'Channel::Whatsapp' &&
+        this.currentInbox.provider === 'whatsapp_fire_mobile'
+      );
+    },
     message() {
       if (this.isATwilioInbox) {
         return `${this.$t('INBOX_MGMT.FINISH.MESSAGE')}. ${this.$t(
@@ -136,6 +162,12 @@ export default {
       }
 
       if (this.isWhatsAppCloudInbox) {
+        return `${this.$t('INBOX_MGMT.FINISH.MESSAGE')}. ${this.$t(
+          'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.SUBTITLE'
+        )}`;
+      }
+
+      if (this.isWhatsAppFireMobileInbox) {
         return `${this.$t('INBOX_MGMT.FINISH.MESSAGE')}. ${this.$t(
           'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.SUBTITLE'
         )}`;

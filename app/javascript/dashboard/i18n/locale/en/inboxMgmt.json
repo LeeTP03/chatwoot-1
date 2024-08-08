@@ -217,6 +217,7 @@
           "LABEL": "API Provider",
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "WhatsApp Cloud",
+          "FIRE_MOBILE": "Fire Mobile",
           "360_DIALOG": "360Dialog"
         },
         "INBOX_NAME": {
@@ -329,7 +330,7 @@
       },
       "TELEGRAM_CHANNEL": {
         "TITLE": "Telegram Channel",
-        "DESC": "Integrate with Telegram channel and start supporting your customers.",
+        "DESC": "Integrate with KAKA channel and start supporting your customers.",
         "BOT_TOKEN": {
           "LABEL": "Bot Token",
           "SUBTITLE": "Configure the bot token you have obtained from Telegram BotFather.",
