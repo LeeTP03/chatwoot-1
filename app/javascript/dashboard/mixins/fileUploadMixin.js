@@ -2,7 +2,10 @@ import {
   MAXIMUM_FILE_UPLOAD_SIZE,
   MAXIMUM_FILE_UPLOAD_SIZE_TWILIO_SMS_CHANNEL,
 } from 'shared/constants/messages';
-import { checkFileSizeLimit } from 'shared/helpers/FileHelper';
+import {
+  checkFileSizeLimit,
+  checkFileExtension,
+} from 'shared/helpers/FileHelper';
 import { DirectUpload } from 'activestorage';
 
 export default {
@@ -56,6 +59,15 @@ export default {
         ? MAXIMUM_FILE_UPLOAD_SIZE_TWILIO_SMS_CHANNEL
         : MAXIMUM_FILE_UPLOAD_SIZE;
       if (!file) {
+        return;
+      }
+      if (this.isFireMobileWhatsAppChannel) {
+        const fileExtension = checkFileExtension(file);
+        if (fileExtension === 'webp') {
+          alert('WebP files are not supported');
+          return;
+        }
+        this.attachFile({ file });
         return;
       }
       if (checkFileSizeLimit(file, MAXIMUM_SUPPORTED_FILE_UPLOAD_SIZE)) {

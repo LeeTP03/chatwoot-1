@@ -19,3 +19,8 @@ export const checkFileSizeLimit = (file, maximumUploadLimit) => {
   const fileSizeInMB = fileSizeInMegaBytes(fileSize);
   return fileSizeInMB <= maximumUploadLimit;
 };
+
+export const checkFileExtension = file => {
+  const fileExtension = file.name.split('.').pop();
+  return fileExtension;
+};
