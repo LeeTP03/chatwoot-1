@@ -10,6 +10,7 @@ class Whatsapp::SendOnWhatsappService < Base::SendOnChannelService
     if should_send_template_message
       send_template_message
     else
+      Rails.logger.info 'reply-else------'
       send_session_message
     end
   end
@@ -22,6 +23,7 @@ class Whatsapp::SendOnWhatsappService < Base::SendOnChannelService
     message_id = channel.send_template(message.conversation.contact_inbox.source_id, {
                                          name: name,
                                          namespace: namespace,
+                                         type: 'media_template',
                                          lang_code: lang_code,
                                          parameters: processed_parameters
                                        })
@@ -30,6 +32,7 @@ class Whatsapp::SendOnWhatsappService < Base::SendOnChannelService
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def processable_channel_message_template
+    Rails.logger.info "reply-template_params------#{template_params}"
     if template_params.present?
       return [
         template_params['name'],
